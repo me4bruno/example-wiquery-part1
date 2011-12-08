@@ -1,4 +1,4 @@
-package de.bruns.example.wiquery;
+package de.bruns.example.wiquery.part1;
 
 import org.apache.wicket.util.time.Duration;
 import org.eclipse.jetty.http.ssl.SslContextFactory;
