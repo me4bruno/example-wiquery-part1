@@ -1,8 +1,7 @@
-package de.bruns.example.wiquery;
+package de.bruns.example.wiquery.part1;
 
 import org.apache.wicket.protocol.http.WebApplication;
 
-import de.bruns.example.wiquery.part1.OsmPage;
 
 /**
  * Application object for your web application. If you want to run this application without deploying, run the Start class.

@@ -20,7 +20,7 @@
 		</license>
 	</licenses>
 	<properties>
-		<wicket.version>1.5.3</wicket.version>
+		<wicket.version>1.5.2</wicket.version>
 		<jetty.version>7.5.0.v20110901</jetty.version>
 	</properties>
 	<dependencies>
@@ -30,6 +30,14 @@
 			<artifactId>wicket-core</artifactId>
 			<version>${wicket.version}</version>
 		</dependency>
+
+		<!-- EXAMPLE WIQUERY PART 1: added this entry -->
+		<dependency>
+		     <groupId>org.odlabs.wiquery</groupId>
+		     <artifactId>wiquery-jquery-ui</artifactId>
+		     <version>${wicket.version}</version>
+		</dependency>		
+
 		<!-- OPTIONAL DEPENDENCY
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
@@ -154,6 +162,13 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
+
+		<!-- EXAMPLE WIQUERY PART 1: added this entry -->
+	    <repository>
+	         <id>wiquery-maven-repo</id>
+	         <name>WiQuery repository</name>
+	         <url>https://wiquery.googlecode.com/svn/repo/</url>
+	     </repository>
 	</repositories>
 
 	</project>
