@@ -6,6 +6,7 @@
 
     <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
     <script type="text/javascript" src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.5&amp;sensor=false"></script>
 
 	<script type="text/javascript">
   	  function init() {
@@ -29,10 +30,32 @@
   	            displayProjection: proj4326
   	    });
 
-  	    var mapnikLayer = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
-  	    var tahLayer = new OpenLayers.Layer.OSM.Osmarender("Tiles@Home");
-  	    map.addLayers([mapnikLayer, tahLayer]);
+  	    var osmMapnik = new OpenLayers.Layer.OSM.Mapnik("OSM Mapnik");
+  	    var osmTiles = new OpenLayers.Layer.OSM.Osmarender("OSM Tiles@Home");
+  	    var googlePhy = new OpenLayers.Layer.Google("Google Physical", {type: google.maps.MapTypeId.TERRAIN});
+  	    var googleMap = new OpenLayers.Layer.Google("Google Streets", {numZoomLevels: 20});
+  	    var googleHyb = new OpenLayers.Layer.Google("Google Hybrid", {type: google.maps.MapTypeId.HYBRID, numZoomLevels: 20});
+  	    var googleSat = new OpenLayers.Layer.Google("Google Satellite", {type: google.maps.MapTypeId.SATELLITE, numZoomLevels: 22});
+ 	    
+        akwLayer = new OpenLayers.Layer.Vector("AKWs in Deutschland");
+        var feature = new OpenLayers.Feature.Vector(
+  	  		new OpenLayers.Geometry.MultiPoint([
+  	  				 new OpenLayers.Geometry.Point(9.344722, 53.850833).transform(proj4326, projmerc),
+  	  			     new OpenLayers.Geometry.Point(12.29315, 48.605606).transform(proj4326, projmerc),
+  	  			     new OpenLayers.Geometry.Point(8.436436, 49.252722).transform(proj4326, projmerc),
+  	  			     new OpenLayers.Geometry.Point(9.413333, 52.035278).transform(proj4326, projmerc),
+  	  			     new OpenLayers.Geometry.Point(8.480197, 53.4277).transform(proj4326, projmerc),
+  	  			     new OpenLayers.Geometry.Point(10.408889, 53.41).transform(proj4326, projmerc),
+  	  			     new OpenLayers.Geometry.Point(7.317858, 52.474231).transform(proj4326, projmerc),
+  	  			     new OpenLayers.Geometry.Point(9.175, 49.041111).transform(proj4326, projmerc),
+  	  			     new OpenLayers.Geometry.Point(10.184669, 49.984086).transform(proj4326, projmerc),
+  	  			     new OpenLayers.Geometry.Point(10.402222, 48.514722).transform(proj4326, projmerc),
+  	  			     new OpenLayers.Geometry.Point(8.415278, 49.71).transform(proj4326, projmerc),
+  	  			     new OpenLayers.Geometry.Point(9.201667, 53.891667).transform(proj4326, projmerc)
+  	  	]), {some:'data'});
+        akwLayer.addFeatures(feature);
 
+  	    map.addLayers([osmMapnik, osmTiles, googlePhy, googleMap, googleHyb, googleSat, akwLayer]);
   	    centerMap(new OpenLayers.LonLat(10.5, 51.3), 6);
       }
   	  
@@ -43,6 +66,10 @@
   		center.transform(proj4326, projmerc);
       	map.setCenter(center, zoom);
       }
+  	  
+  	  function toggleAkwMap() {
+  		akwLayer.setVisibility(!akwLayer.visibility);
+      }
 	</script>
 
     <style type="text/css">
@@ -52,14 +79,20 @@
 	          margin: 0;
 	      }
 	      
-	      #center-buttons {
+	      #action-accordion {
 	          position: absolute;
 	          bottom: 1em;
-	          left: 1em;
-	          width: 200px;
+	          left: 4em;
+	          width: 150px;
 	          z-index: 2000;
 	          background-color: transparent;
-	      }    
+ 	      	  font-size: 75%;
+	      } 
+	      
+	      button {
+	      	width: 100%;
+ 	      	margin: 5px;
+	      }  
 	</style>
 
   </head>
@@ -67,13 +100,32 @@
   <body onload="init()">
     <div id="map"></div>
 
-    <div id="center-buttons">
-	    <button wicket:id="germany-button">Deutschland</button>
-	    <button wicket:id="berlin-button">Berlin</button>
-	    <button wicket:id="hamburg-button">Hamburg</button>
-	    <button wicket:id="muenchen-button">M&uuml;nchen</button>
-	    <button wicket:id="sylt-button">Sylt</button>
-    </div>
+	<div wicket:id="action-accordion" id="action-accordion">
+	    <h3><a href="#">Navigation</a></h3>
+	    <div>
+		    <button wicket:id="germany-button">Deutschland</button>
+		    <button wicket:id="berlin-button">Berlin</button>
+		    <button wicket:id="hamburg-button">Hamburg</button>
+		    <button wicket:id="muenchen-button">M&uuml;nchen</button>
+		    <button wicket:id="sylt-button">Sylt</button>
+	    </div>
+	    
+	    <h3><a href="#">Karten</a></h3>
+	    <div>
+		    <button wicket:id="toggleAkwMap-button">AKW-Karte umschalten</button>
+	    </div>
+
+	    <h3><a href="#">&Uuml;ber...</a></h3>
+	    <div>
+	         <button wicket:id="showAbout-button">&Ouml;ffne &uuml;ber Dialog</button>
+		     <div wicket:id="about-dialog">
+             	<b>Mail:</b>
+             	<p>
+             	  <a href="mailto:me4bruno@andreas-bruns.com">me4bruno@andreas-bruns.com</a>
+             	</p>
+        	</div>
+	    </div>
+	</div>
              
   </body>
 </html>

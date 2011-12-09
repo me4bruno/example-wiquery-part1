@@ -1,6 +1,8 @@
 package de.bruns.example.wiquery.part1;
 
+import org.apache.wicket.Session;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.request.mapper.BufferedResponseMapper;
 
 
 /**
@@ -28,5 +30,13 @@ public class WicketApplication extends WebApplication
 		super.init();
 
 		// add your configuration here
+		
+		// see https://issues.apache.org/jira/browse/WICKET-4163
+		mount(new BufferedResponseMapper() {
+			protected String getSessionId() {
+				return Session.get().getId();
+			}
+		});
 	}
+	
 }
