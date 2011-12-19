@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	version="2.5">
 
-	<display-name>part1</display-name>
+	<display-name>Example WiQuery Part 1</display-name>
 
 	<!--
 		There are three means to configure Wickets configuration mode and they 

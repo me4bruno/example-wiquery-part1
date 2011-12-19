@@ -29,28 +29,49 @@ public class OsmPage extends WebPage {
 		accordion.add(createButton("germany-button",
 				"centerMap(new OpenLayers.LonLat(10.5, 51.3), 6);"));
 		accordion.add(createButton("berlin-button",
-				"centerMap(new OpenLayers.LonLat(13.4,52.5), 9);"));
+				"centerMap(new OpenLayers.LonLat(13.4,52.5), 8);"));
 		accordion.add(createButton("hamburg-button",
-				"centerMap(new OpenLayers.LonLat(10.1, 53.5), 10);"));
+				"centerMap(new OpenLayers.LonLat(10.1, 53.5), 9);"));
 		accordion.add(createButton("muenchen-button",
-				"centerMap(new OpenLayers.LonLat(11.6, 48.1), 10);"));
+				"centerMap(new OpenLayers.LonLat(11.6, 48.1), 9);"));
 		accordion.add(createButton("sylt-button",
-				"centerMap(new OpenLayers.LonLat(8.3, 54.9), 10);"));
+				"centerMap(new OpenLayers.LonLat(8.3, 54.9), 9);"));
 
 		// Switch Layer
-		accordion.add(createButton("toggleAkwMap-button", "toggleAkwMap();"));
+		accordion.add(createButton("toggleAkwImageLayer-button", "toggleAkwImageLayer();"));
+		accordion.add(createButton("toggleAkwDistanceLayer-button", "toggleAkwDistanceLayer();"));
 		
-		// Dialog
-		final Dialog aboutDialog = new Dialog("about-dialog");
-		aboutDialog.setTitle("www.cartopol.com");
-		accordion.add(aboutDialog);
+		// Credits Dialog
+		final Dialog creditsDialog = new Dialog("credits-dialog");
+		creditsDialog.setTitle("Danke");
+		creditsDialog.setWidth(550);
+		accordion.add(creditsDialog);
 
-		Button showAboutButton = new Button("showAbout-button");
-		showAboutButton.add(new ButtonBehavior());
-		showAboutButton.add(new WiQueryEventBehavior(
+		Button showCreditsButton = new Button("showCredits-button");
+		showCreditsButton.add(new ButtonBehavior());
+		showCreditsButton.add(new WiQueryEventBehavior(
 				new Event(MouseEvent.CLICK) {
 					private static final long serialVersionUID = 1L;
 
+					@Override
+					public JsScope callback() {
+						return JsScope.quickScope(creditsDialog.open().render());
+					}
+				}));
+		accordion.add(showCreditsButton);
+
+		// About Dialog
+		final Dialog aboutDialog = new Dialog("about-dialog");
+		aboutDialog.setTitle("Example WiQuery Part1");
+		aboutDialog.setWidth(300);
+		accordion.add(aboutDialog);
+		
+		Button showAboutButton = new Button("showAbout-button");
+ 		showAboutButton.add(new ButtonBehavior());
+		showAboutButton.add(new WiQueryEventBehavior(
+				new Event(MouseEvent.CLICK) {
+					private static final long serialVersionUID = 1L;
+					
 					@Override
 					public JsScope callback() {
 						return JsScope.quickScope(aboutDialog.open().render());

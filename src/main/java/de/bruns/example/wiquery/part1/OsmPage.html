@@ -9,10 +9,36 @@
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.5&amp;sensor=false"></script>
 
 	<script type="text/javascript">
-  	  function init() {
-  	    var proj4326 = new OpenLayers.Projection("EPSG:4326");
-  	    var projmerc = new OpenLayers.Projection("EPSG:900913");
 
+	  PROJECTION_4326 = new OpenLayers.Projection("EPSG:4326");
+	  PROJECTION_MERC = new OpenLayers.Projection("EPSG:900913");
+	
+      AKW_LOCATIONS = [
+      	new AkwLocation("Brokdorf", 9.344722, 53.850833, "http://de.wikipedia.org/wiki/AKW_Brokdorf", "<a title='von Alois Staudacher (Eigenes Werk) [GFDL (www.gnu.org/copyleft/fdl.html) oder CC-BY-SA-3.0 (www.creativecommons.org/licenses/by-sa/3.0/)], durch Wikimedia Commons' href='http://commons.wikimedia.org/wiki/File%3AKernkraftwerk_Borkdorf.JPG'><img width='240' alt='Kernkraftwerk Brokdorf' src='http://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Kernkraftwerk_Borkdorf.JPG/240px-Kernkraftwerk_Borkdorf.JPG'/></a>"),
+        new AkwLocation("Isar/Ohu 1+2", 12.29315, 48.605606, "http://de.wikipedia.org/wiki/AKW_Isar", "<a title='von E.ON Kernkraft GmbH (E.ON Kernkraft GmbH) [GFDL (www.gnu.org/copyleft/fdl.html) oder CC-BY-SA-3.0 (www.creativecommons.org/licenses/by-sa/3.0/)], durch Wikimedia Commons' href='http://commons.wikimedia.org/wiki/File%3AKKI.jpg'><img width='240' alt='KKI' src='http://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/KKI.jpg/240px-KKI.jpg'/></a>"),
+        new AkwLocation("Philippsburg 1+2", 8.436436, 49.252722, "http://de.wikipedia.org/wiki/AKW_Philippsburg", "<a title='von Lothar Neumann, Gernsbach [1] (Karlsruhe:Bild:Philippsburg2.jpg) [CC-BY-SA-2.5 (www.creativecommons.org/licenses/by-sa/2.5)], durch Wikimedia Commons' href='http://commons.wikimedia.org/wiki/File%3APhilippsburg2.jpg'><img width='240' alt='Philippsburg2' src='http://upload.wikimedia.org/wikipedia/commons/e/e8/Philippsburg2.jpg'/></a>"),
+        new AkwLocation("Grohnde", 9.413333, 52.035278, "http://de.wikipedia.org/wiki/AKW_Grohnde", "<a title='von AxelHH (Eigenes Werk) [Public domain], durch Wikimedia Commons' href='http://commons.wikimedia.org/wiki/File%3AKKW_Grohnde_Weser.jpg'><img width='240' alt='KKW Grohnde Weser' src='http://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/KKW_Grohnde_Weser.jpg/240px-KKW_Grohnde_Weser.jpg'/></a>"),
+        new AkwLocation("Unterweser", 8.480197, 53.4277, "http://de.wikipedia.org/wiki/AKW_Unterweser", "<a title='von Wilfried Wittkowsky (Eigenes Werk (eigenes Bild)) [GFDL (www.gnu.org/copyleft/fdl.html) oder CC-BY-SA-3.0 (www.creativecommons.org/licenses/by-sa/3.0/)], durch Wikimedia Commons' href='http://commons.wikimedia.org/wiki/File%3AKKW-Unterweser.jpg'><img width='240' alt='KKW-Unterweser' src='http://upload.wikimedia.org/wikipedia/commons/8/80/KKW-Unterweser.jpg'/></a>"),
+        new AkwLocation("Krümmel", 10.408889, 53.41, "http://de.wikipedia.org/wiki/AKW_Kr%C3%BCmmel", "<a title='von Quartl (Eigenes Werk) [CC-BY-SA-3.0 (www.creativecommons.org/licenses/by-sa/3.0)], durch Wikimedia Commons' href='http://commons.wikimedia.org/wiki/File%3AKernkraftwerk_Kruemmel_Side_retouched.jpg'><img width='240' alt='Kernkraftwerk Kruemmel Side retouched' src='http://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Kernkraftwerk_Kruemmel_Side_retouched.jpg/240px-Kernkraftwerk_Kruemmel_Side_retouched.jpg'/></a>"),
+        new AkwLocation("Emsland", 7.317858, 52.474231, "http://de.wikipedia.org/wiki/AKW_Emsland", "<a title='Smial aus de.wikipedia.org [FAL oder GFDL (www.gnu.org/copyleft/fdl.html)], durch Wikimedia Commons' href='http://commons.wikimedia.org/wiki/File%3AKkw_ems_pano2.jpg'><img width='240' alt='Kkw ems pano2' src='http://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Kkw_ems_pano2.jpg/240px-Kkw_ems_pano2.jpg'/></a>"),
+        new AkwLocation("Neckarwestheim 1+2", 9.175, 49.041111, "http://de.wikipedia.org/wiki/AKW_Neckarwestheim", "<a title='von thomas springer (Eigenes Werk) [Public domain], durch Wikimedia Commons' href='http://commons.wikimedia.org/wiki/File%3AAtomkraftwerk_GKN_Neckarwestheim.JPG'><img width='240' alt='Atomkraftwerk GKN Neckarwestheim' src='http://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Atomkraftwerk_GKN_Neckarwestheim.JPG/240px-Atomkraftwerk_GKN_Neckarwestheim.JPG'/></a>"),
+        new AkwLocation("Grafenrheinfeld", 10.184669, 49.984086, "http://de.wikipedia.org/wiki/Kernkraftwerk_Grafenrheinfeld", "<a title='von Rainer Lippert (Eigenes Werk) [Public domain], durch Wikimedia Commons' href='http://commons.wikimedia.org/wiki/File%3AKernkraftwerk_Grafenrheinfeld_1.jpg'><img width='240' alt='Kernkraftwerk Grafenrheinfeld 1' src='http://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Kernkraftwerk_Grafenrheinfeld_1.jpg/240px-Kernkraftwerk_Grafenrheinfeld_1.jpg'/></a>"),
+        new AkwLocation("Gundremmingen B+C", 10.402222, 48.514722, "http://de.wikipedia.org/wiki/AKW_Gundremmingen", "<a title='von Felix König (Eigenes Werk (own work) - Samsung S750) [GFDL (www.gnu.org/copyleft/fdl.html) oder CC-BY-SA-3.0 (www.creativecommons.org/licenses/by-sa/3.0)], durch Wikimedia Commons' href='http://commons.wikimedia.org/wiki/File%3AGundremmingen_Nuclear_Power_Plant.jpg'><img width='240' alt='Gundremmingen Nuclear Power Plant' src='http://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Gundremmingen_Nuclear_Power_Plant.jpg/240px-Gundremmingen_Nuclear_Power_Plant.jpg'/></a>"),
+        new AkwLocation("Biblis A+B", 8.415278, 49.71, "http://de.wikipedia.org/wiki/AKW_Biblis", "<a title='von Alexander Hoernigk (Eigenes Werk) [GFDL (www.gnu.org/copyleft/fdl.html) oder CC-BY-3.0 (www.creativecommons.org/licenses/by/3.0)], durch Wikimedia Commons' href='http://commons.wikimedia.org/wiki/File%3AKKW_Biblis_Gesamtansicht_vom_linken_Rheinufer.JPG'><img width='240' alt='KKW Biblis Gesamtansicht vom linken Rheinufer' src='http://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/KKW_Biblis_Gesamtansicht_vom_linken_Rheinufer.JPG/240px-KKW_Biblis_Gesamtansicht_vom_linken_Rheinufer.JPG'/></a>"),
+        new AkwLocation("Brunsbüttel", 9.201667, 53.891667, "http://de.wikipedia.org/wiki/AKW_Brunsb%C3%BCttel", "<a title='von Steffen Papenbroock (Designagentur wedes) [GFDL (www.gnu.org/copyleft/fdl.html) oder CC-BY-SA-3.0 (www.creativecommons.org/licenses/by-sa/3.0/)], durch Wikimedia Commons' href='http://commons.wikimedia.org/wiki/File%3AKernkraftwerk_Brunsb%C3%BCttel_-_Landseite.jpg'><img width='240' alt='Kernkraftwerk Brunsbüttel - Landseite' src='http://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Kernkraftwerk_Brunsb%C3%BCttel_-_Landseite.jpg/240px-Kernkraftwerk_Brunsb%C3%BCttel_-_Landseite.jpg'/></a>")
+      ];
+      
+      function AkwLocation(name, x, y, sourceReference, imageContent) {
+      	this.point = new OpenLayers.Geometry.Point(x, y).transform(PROJECTION_4326, PROJECTION_MERC);
+  
+      	var akwHtmlContent = "<h2>" + name + "</h2>" + imageContent + "<br>" + "Quelle: <a href='" + sourceReference +  "'>Wikipedia.org</a>";
+        var attributes = {htmlContent: akwHtmlContent};
+        var styles = {externalGraphic: 'powerplant.png', graphicHeight: 37, graphicWidth: 32, graphicYOffset: -34 };
+        
+        this.feature = new OpenLayers.Feature.Vector(this.point, attributes, styles);
+      }
+    
+      function init() {
   	    map = new OpenLayers.Map("map", {
   				controls: [
   		  	        new OpenLayers.Control.PanZoomBar(),
@@ -26,8 +52,8 @@
   				numZoomLevels: 18,
   	            maxResolution: 156543,
   	            units: 'm',
-  	            projection: projmerc,
-  	            displayProjection: proj4326
+  	            projection: PROJECTION_MERC,
+  	            displayProjection: PROJECTION_4326
   	    });
 
   	    var osmMapnik = new OpenLayers.Layer.OSM.Mapnik("OSM Mapnik");
@@ -37,39 +63,79 @@
   	    var googleHyb = new OpenLayers.Layer.Google("Google Hybrid", {type: google.maps.MapTypeId.HYBRID, numZoomLevels: 20});
   	    var googleSat = new OpenLayers.Layer.Google("Google Satellite", {type: google.maps.MapTypeId.SATELLITE, numZoomLevels: 22});
  	    
-        akwLayer = new OpenLayers.Layer.Vector("AKWs in Deutschland");
-        var feature = new OpenLayers.Feature.Vector(
-  	  		new OpenLayers.Geometry.MultiPoint([
-  	  				 new OpenLayers.Geometry.Point(9.344722, 53.850833).transform(proj4326, projmerc),
-  	  			     new OpenLayers.Geometry.Point(12.29315, 48.605606).transform(proj4326, projmerc),
-  	  			     new OpenLayers.Geometry.Point(8.436436, 49.252722).transform(proj4326, projmerc),
-  	  			     new OpenLayers.Geometry.Point(9.413333, 52.035278).transform(proj4326, projmerc),
-  	  			     new OpenLayers.Geometry.Point(8.480197, 53.4277).transform(proj4326, projmerc),
-  	  			     new OpenLayers.Geometry.Point(10.408889, 53.41).transform(proj4326, projmerc),
-  	  			     new OpenLayers.Geometry.Point(7.317858, 52.474231).transform(proj4326, projmerc),
-  	  			     new OpenLayers.Geometry.Point(9.175, 49.041111).transform(proj4326, projmerc),
-  	  			     new OpenLayers.Geometry.Point(10.184669, 49.984086).transform(proj4326, projmerc),
-  	  			     new OpenLayers.Geometry.Point(10.402222, 48.514722).transform(proj4326, projmerc),
-  	  			     new OpenLayers.Geometry.Point(8.415278, 49.71).transform(proj4326, projmerc),
-  	  			     new OpenLayers.Geometry.Point(9.201667, 53.891667).transform(proj4326, projmerc)
-  	  	]), {some:'data'});
-        akwLayer.addFeatures(feature);
+  	    akwImageLayer = new OpenLayers.Layer.Vector("Bilder Karte");
+        for (var i = 0; i < AKW_LOCATIONS.length; i++) {
+        	akwImageLayer.addFeatures(AKW_LOCATIONS[i].feature);       
+	    }
 
-  	    map.addLayers([osmMapnik, osmTiles, googlePhy, googleMap, googleHyb, googleSat, akwLayer]);
-  	    centerMap(new OpenLayers.LonLat(10.5, 51.3), 6);
+        var style_green = {
+        	fillOpacity: 0.4,
+        	fillColor: '#FF0000'
+      	}; 
+
+        akwDistanceLayer = new OpenLayers.Layer.Vector("50km Karte");
+        for (var i = 0; i < AKW_LOCATIONS.length; i++) {
+        	var akwLocation = AKW_LOCATIONS[i].point;
+        	var circle = OpenLayers.Geometry.Polygon.createRegularPolygon(AKW_LOCATIONS[i].point, 50 * 1000 , 32, 0 );
+          	var circleFeature = new OpenLayers.Feature.Vector(circle, null, style_green );
+          	akwDistanceLayer.addFeatures(circleFeature);
+        }
+        
+  	    map.addLayers([osmMapnik, osmTiles, googlePhy, googleMap, googleHyb, googleSat, akwDistanceLayer, akwImageLayer]);
+  	    
+  		centerMap(new OpenLayers.LonLat(10.5, 51.3), 6);
+      	
+        // Interaction; not needed for initial display.
+        selectControl = new OpenLayers.Control.SelectFeature(akwImageLayer);
+        map.addControl(selectControl);
+        selectControl.activate();
+        
+        akwImageLayer.events.on({
+            'featureselected': onFeatureSelect,
+            'featureunselected': onFeatureUnselect
+        });
       }
   	  
   	  function centerMap(center, zoom) {
-    	var proj4326 = new OpenLayers.Projection("EPSG:4326");
-      	var projmerc = new OpenLayers.Projection("EPSG:900913");
-
-  		center.transform(proj4326, projmerc);
+  		center.transform(PROJECTION_4326, PROJECTION_MERC);
       	map.setCenter(center, zoom);
       }
   	  
-  	  function toggleAkwMap() {
-  		akwLayer.setVisibility(!akwLayer.visibility);
+  	  function toggleAkwImageLayer() {
+  		akwImageLayer.setVisibility(!akwImageLayer.visibility);
       }
+
+  	  function toggleAkwDistanceLayer() {
+  		akwDistanceLayer.setVisibility(!akwDistanceLayer.visibility);
+      }
+  	  
+      // Needed only for interaction, not for the display.
+      function onPopupClose(evt) {
+          // 'this' is the popup.
+          selectControl.unselect(this.feature);
+      }
+      
+      function onFeatureSelect(evt) {
+    	  feature = evt.feature;
+          popup = new OpenLayers.Popup.FramedCloud("featurePopup",
+                                   feature.geometry.getBounds().getCenterLonLat(),
+                                   new OpenLayers.Size(200,200), feature.attributes.htmlContent,
+                                   null, true, onPopupClose);
+          feature.popup = popup;
+          popup.feature = feature;
+          map.addPopup(popup);
+      }
+      
+      function onFeatureUnselect(evt) {
+          feature = evt.feature;
+          if (feature.popup) {
+              popup.feature = null;
+              map.removePopup(feature.popup);
+              feature.popup.destroy();
+              feature.popup = null;
+          }
+      }
+      
 	</script>
 
     <style type="text/css">
@@ -79,20 +145,30 @@
 	          margin: 0;
 	      }
 	      
+	      button {
+	      	width: 100%;
+ 	      	margin: 5px;
+	      }
+
 	      #action-accordion {
 	          position: absolute;
 	          bottom: 1em;
 	          left: 4em;
-	          width: 150px;
+	          width: 170px;
 	          z-index: 2000;
 	          background-color: transparent;
  	      	  font-size: 75%;
 	      } 
 	      
-	      button {
-	      	width: 100%;
- 	      	margin: 5px;
-	      }  
+		  #copyright {
+	          position: absolute;
+	          bottom: 1em;
+	          right: 0.5em;
+	          z-index: 2000;
+	    	  font-size: 80%;
+	    	  text-align: right;
+		  }	      
+	      
 	</style>
 
   </head>
@@ -110,22 +186,80 @@
 		    <button wicket:id="sylt-button">Sylt</button>
 	    </div>
 	    
-	    <h3><a href="#">Karten</a></h3>
+	    <h3><a href="#">Karte umschalten</a></h3>
 	    <div>
-		    <button wicket:id="toggleAkwMap-button">AKW-Karte umschalten</button>
+		    <button wicket:id="toggleAkwDistanceLayer-button">50km-Karte</button>
+		    <button wicket:id="toggleAkwImageLayer-button">Bilder-Karte</button>
 	    </div>
 
 	    <h3><a href="#">&Uuml;ber...</a></h3>
 	    <div>
-	         <button wicket:id="showAbout-button">&Ouml;ffne &uuml;ber Dialog</button>
+	         <button wicket:id="showCredits-button">Danke-Dialog</button>
+		     <div wicket:id="credits-dialog">
+             	<b>Ein Dank an die folgenden tollen Projekte:</b> 
+
+				<table>
+					<tr>
+						<td align="right"><img src="wiquery.png" alt="wiQuery" height="40px"></td>
+						<td>
+							<b>wiQuery</b><br> 
+             	  			<a href="http://code.google.com/p/wiquery/">http://code.google.com/p/wiquery/</a>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><img src="jquery.png" alt="jQuery" height="40px"></td>
+						<td>
+							<b>jQuery</b><br> 
+             	  			<a href="http://jquery.org/">http://jquery.org/</a>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><img src="apache-wicket.png" alt="Apache Wicket" height="40px"></td>
+						<td>
+							<b>Apache Wicket</b><br> 
+             	  			<a href="http://wicket.apache.org/">http://wicket.apache.org/</a>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><img src="openstreetmap.png" alt="OpenStreetMap" height="40px"></td>
+						<td>
+		            	  <b>OpenStreetMap</b><br> 
+		             	  <a href="http://www.openstreetmap.org/">http://www.openstreetmap.org/</a>
+		 				</td>
+					</tr>
+					<tr>
+						<td align="right"><img src="openlayers.png" alt="OpenLayers" height="40px"></td>
+						<td>
+			              <b>OpenLayers</b><br> 
+			              <a href="http://openlayers.org/">http://openlayers.org/</a>
+						</td>
+					</tr>
+					<tr>
+						<td align="right"><img src="maps-icons-collection.gif" alt="Maps Icons Collection" height="40px"></td>
+						<td>
+		             	  <b>Maps Icons Collection</b><br>
+		             	  <a href="http://mapicons.nicolasmollet.com/">http://mapicons.nicolasmollet.com/</a>
+						</td>
+					</tr>
+				</table>	
+        	 </div>
+        	 
+	         <button wicket:id="showAbout-button">&Uuml;ber-Dialog</button>
 		     <div wicket:id="about-dialog">
-             	<b>Mail:</b>
-             	<p>
-             	  <a href="mailto:me4bruno@andreas-bruns.com">me4bruno@andreas-bruns.com</a>
+				<p>
+             	  <b>Inhalt:</b> AKWs in Deutschland
+             	</p>
+				<p>
+             	  <b>Blog:</b> <a href="http://me4bruno.wordpress.com/2011/12/19/wiquery-huebsches-design-fuer-wicket/">Example WiQuery Part1</a>
              	</p>
         	</div>
 	    </div>
 	</div>
-             
+    
+    <div id="copyright">
+    	<a target="_blank" href="http://www.openstreetmap.org/">Karte hergestellt aus OpenStreetMap-Daten</a> | Lizenz: <a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-sa/2.0/de">Creative Commons BY-SA 2.0</a><br>
+    	<a target="_blank" href="http://de.wikipedia.org/wiki/Liste_der_Kernreaktoren_in_Deutschland#Kernkraftwerke">AKW-Daten entnommen von Wikipedia</a> | Lizenz: <a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-sa/3.0/de/">Creative Commons BY-SA 3.0</a>
+    </div>
+     
   </body>
 </html>
