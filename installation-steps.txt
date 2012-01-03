@@ -1,10 +1,17 @@
+-- Installation of Wicket 
 mvn archetype:generate -DarchetypeGroupId=org.apache.wicket -DarchetypeArtifactId=wicket-archetype-quickstart -DarchetypeVersion=1.5.3 -DgroupId=de.bruns.example.wiquery -DartifactId=part1 -DarchetypeRepository=https://repository.apache.org/ -DinteractiveMode=false
 mvn jetty:run
 => localhost:8080
 
-=> wiquery + repository in pom.xml hinzufügen
+-- Installation of WiQuery (add to pom.xml)
+<dependency>
+	<groupId>org.odlabs.wiquery</groupId>
+	<artifactId>wiquery-jquery-ui</artifactId>
+	<version>${wicket.version}</version>
+</dependency>
 
-=> bei vorhandenem JQuery mal bei http://code.google.com/p/wiquery/wiki/WiQuerySettings vorbeischauen
-
--- Link mit ButtonBehviour
--- go on here
+<repository>
+	<id>wiquery-maven-repo</id>
+	<name>WiQuery repository</name>
+	<url>https://wiquery.googlecode.com/svn/repo/</url>
+</repository>

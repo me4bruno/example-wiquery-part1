@@ -68,16 +68,15 @@
         	akwImageLayer.addFeatures(AKW_LOCATIONS[i].feature);       
 	    }
 
-        var style_green = {
+        var style_red = {
         	fillOpacity: 0.4,
         	fillColor: '#FF0000'
       	}; 
 
         akwDistanceLayer = new OpenLayers.Layer.Vector("50km Karte");
         for (var i = 0; i < AKW_LOCATIONS.length; i++) {
-        	var akwLocation = AKW_LOCATIONS[i].point;
         	var circle = OpenLayers.Geometry.Polygon.createRegularPolygon(AKW_LOCATIONS[i].point, 50 * 1000 , 32, 0 );
-          	var circleFeature = new OpenLayers.Feature.Vector(circle, null, style_green );
+          	var circleFeature = new OpenLayers.Feature.Vector(circle, null, style_red );
           	akwDistanceLayer.addFeatures(circleFeature);
         }
         
